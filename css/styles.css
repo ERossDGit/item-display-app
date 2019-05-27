@@ -1,0 +1,23 @@
+/*
+Colors used
+
+Background color: #e5e5e5;
+Primary Button background color:  #3F3FD4
+Link base color:  #000000
+Link visited color:  #000000
+link active color:  #ffff00
+
+ */
+
+:root {
+  --primary-link-color: #00f;
+  --secondary-link-color: #e0b354;
+  --active-link-color: #ff0;
+  --body-bg-color: #e5e5e5;
+  --primary-bg-color: #112055;
+  --secondary-bg-color: #4f9d92;
+  --button-bg-color: #3f3fd4;
+  --button-text-color: #fff;
+  --grid-bg-color: #fff;
+  --header_font_wt: 700;
+}
