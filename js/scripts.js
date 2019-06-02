@@ -6,7 +6,7 @@ var repository = [
 
 var tempName
 
-for (var i = 0; i < 3; i++) {
+for (var i = 0; i < repository.length; i++) {
   tempName = repository[i].name + " (height: " + repository[i].height + ")";
   if (repository[i].height > .5) {
     tempName = tempName + " - Wow, that's big! <br>";
