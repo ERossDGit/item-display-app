@@ -6,12 +6,22 @@ var repository = [
 
 var tempName
 
-for (var i = 0; i < repository.length; i++) {
-  tempName = repository[i].name + " (height: " + repository[i].height + ")";
-  if (repository[i].height > .5) {
-    tempName = tempName + " - Wow, that's big! <br>";
+// for (var i = 0; i < repository.length; i++) {
+//   tempName = repository[i].name + " (height: " + repository[i].height + ")";
+//   if (repository[i].height > .5) {
+//     tempName = tempName + " - Wow, that's big! <br>";
+//   } else {
+//     tempName = tempName + " <br>"
+//   }
+//   document.write(tempName);
+// }
+
+repository.forEach(function(currentItem) {
+  tempName = currentItem.name + " (height: " + currentItem.height + ")";
+  if (currentItem.height > .5) {
+    tempName = tempName + " - WOW, that's big! <br>";
   } else {
     tempName = tempName + " <br>"
   }
   document.write(tempName);
-}
+});
