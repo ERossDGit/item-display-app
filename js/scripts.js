@@ -7,7 +7,19 @@ var pokemonRepository = (function () {
   ];
 
   function add(pokemon) {
+    var isObject = "No"
     if (typeof pokemon === 'object') {
+      isObject = "Yes";
+    }
+
+    var typeOK = "Yes"
+    if (pokemon.hasOwnProperty('name') && pokemon.hasOwnProperty('height') && pokemon.hasOwnProperty('types')) {
+      typeOK = "Yes"
+    } else {
+      typeOK = "No"
+    }
+
+    if (isObject === 'Yes' && typeOK === "Yes") {
       repository.push(pokemon);
     }
   }
@@ -24,7 +36,8 @@ var pokemonRepository = (function () {
 
 // add a pokemon character to the registry
 pokemonRepository.add({name: 'Bugs Bunny', height: 10.5, types: ['rascally', 'rabbit']});
-// pokemonRepository.add('Bugs Bunny');  // this is a test case for trying to enter a non-object
+//pokemonRepository.add('Bugs Bunny');  // this is a test case for trying to enter a non-object
+//pokemonRepository.add({charactername: 'Bugs Bunny', height: 10.5, types: ['rascally', 'rabbit']}); //test for incorrect keys
 
 // temp variable to hold information to written to page
 var tempName
