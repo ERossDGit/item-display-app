@@ -7,19 +7,19 @@ var pokemonRepository = (function () {
   ];
 
   function add(pokemon) {
-    var isObject = "No"
+    var isObject = 0;
     if (typeof pokemon === 'object') {
-      isObject = "Yes";
+      isObject = 1;
     }
 
-    var typeOK = "Yes"
+    var typeOK = 1;
     if (pokemon.hasOwnProperty('name') && pokemon.hasOwnProperty('height') && pokemon.hasOwnProperty('types')) {
-      typeOK = "Yes"
+      typeOK = 1;
     } else {
-      typeOK = "No"
+      typeOK = 0;
     }
 
-    if (isObject === 'Yes' && typeOK === "Yes") {
+    if (isObject && typeOK) {
       repository.push(pokemon);
     }
   }
