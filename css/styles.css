@@ -21,3 +21,41 @@ link active color:  #ffff00
   --grid-bg-color: #fff;
   --header_font_wt: 700;
 }
+
+/* page header formatting */
+
+.page-header {
+  background-color: #fff;
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.page-header {
+  display: flex;
+  width: 100%;
+  padding: 20px;
+}
+
+.page-header__item {
+  flex: 0 1 200px;
+}
+
+/* List formatting */
+
+.list-container {
+  display: flex;
+  width: 100%;
+  padding: 20px
+}
+
+.pokemon-list {
+  list-style: none;
+}
+
+.pokemon-list__item {
+    padding: 10px;
+}
+
+button {
+  height: 50px;
+  width: 200px;
+}
