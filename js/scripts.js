@@ -1,4 +1,5 @@
 // set up the pokemon registry by wrapping in an IIFE
+addListItemCalled = 'No';
 var pokemonRepository = (function () {
   var repository = [
     {name: 'Bulbasaur', height: 0.7, types: ['grass', 'poison']},
@@ -28,29 +29,44 @@ var pokemonRepository = (function () {
     return repository;
   }
 
+  function addListItem(pokemon_item) {
+      addListItemCalled = "Yes";
+      var newListElement = document.createElement('li');
+      newListElement.classList.add('pokemon-list__item');
+      newListElement.innerText = '';
+
+      var newButtonElement = document.createElement('button');
+      newButtonElement.innerText = pokemon_item.name;
+
+      newListElement.appendChild(newButtonElement);
+
+      var $pokemonList = document.querySelector('.pokemon-list');
+      $pokemonList.appendChild(newListElement);
+
+  }
+
+function showDetails(pokemon) {
+  console.log(pokemon);
+}
+
   return {
     add: add,
-    getAll: getAll
+    getAll: getAll,
+    addListItem: addListItem
   };
 })();
 
 // add a pokemon character to the registry
-pokemonRepository.add({name: 'Bugs Bunny', height: 10.5, types: ['rascally', 'rabbit']});
+//pokemonRepository.add({name: 'Bugs Bunny', height: 10.5, types: ['rascally', 'rabbit']});
 //pokemonRepository.add('Bugs Bunny');  // this is a test case for trying to enter a non-object
 //pokemonRepository.add({charactername: 'Bugs Bunny', height: 10.5, types: ['rascally', 'rabbit']}); //test for incorrect keys
 
 // temp variable to hold information to written to page
 var tempName
+//pokemonRepository.addListItem({name: 'Bugs Bunny', height: 10.5, types: ['rascally', 'rabbit']});
 
 // loop through the repository and write each pokemon's
 // name and height
 pokemonRepository.getAll().forEach(function(currentItem) {
-  if (currentItem.height > 10) {
-    tempName = currentItem.name + " (height: " + currentItem.height + ") - WOW, that's humongous! Are you sure that's a pokemon character? <br>";
-  } else if (currentItem.height > .7) {
-    tempName = currentItem.name + " (height: " + currentItem.height + ") - WOW, that's big! <br>";
-  } else {
-    tempName = currentItem.name + " (height: " + currentItem.height + ") <br>";
-    }
-  document.write(tempName);
+  pokemonRepository.addListItem(currentItem);
 });
