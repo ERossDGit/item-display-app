@@ -1,5 +1,4 @@
-// set up the pokemon registry by wrapping in an IIFE
-var pokemonRepository = (function () {
+var pokemonRepository = (function() {
   var repository = [];
   var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
@@ -13,7 +12,10 @@ var pokemonRepository = (function () {
 
     // verify the object has the name, height and types keys
     var typeOK = 1;
-    if (pokemon.hasOwnProperty('name') && pokemon.hasOwnProperty('detailsUrl')) {
+    if (
+      pokemon.hasOwnProperty('name') &&
+      pokemon.hasOwnProperty('detailsUrl')
+    ) {
       typeOK = 1;
     } else {
       typeOK = 0;
@@ -32,63 +34,68 @@ var pokemonRepository = (function () {
 
   // add a repository pokemon to the main page as a button with pokemon name
   function addListItem(pokemon_item) {
+    // create list element
+    var newListElement = document.createElement('li');
+    newListElement.classList.add('pokemon-list__item');
+    newListElement.innerText = '';
 
-      // create list element
-      var newListElement = document.createElement('li');
-      newListElement.classList.add('pokemon-list__item');
-      newListElement.innerText = '';
+    // create button element and add name to innerText
+    var newButtonElement = document.createElement('button');
+    newButtonElement.innerText = pokemon_item.name;
 
-      // create button element and add name to innerText
-      var newButtonElement = document.createElement('button');
-      newButtonElement.innerText = pokemon_item.name;
+    // append button to list element
+    newListElement.appendChild(newButtonElement);
 
-      // append button to list element
-      newListElement.appendChild(newButtonElement);
+    //select the unordered list in the DOM and append list item
+    var $pokemonList = document.querySelector('.pokemon-list');
+    $pokemonList.appendChild(newListElement);
 
-      //select the unordered list in the DOM and append list item
-      var $pokemonList = document.querySelector('.pokemon-list');
-      $pokemonList.appendChild(newListElement);
-
-      // add click event handler to the new button
-      newButtonElement.addEventListener('click', function(event) {
-        showDetails(pokemon_item);
-      })
+    // add click event handler to the new button
+    newButtonElement.addEventListener('click', function() {
+      showDetails(pokemon_item);
+    });
   }
 
   // write the pokemon details to the console log
   function showDetails(pokemon) {
-    pokemonRepository.loadDetails(pokemon).then(function () {
+    pokemonRepository.loadDetails(pokemon).then(function() {
       showModal(pokemon.name, pokemon.height, pokemon.imageUrl);
     });
   }
 
   function loadList() {
-      return fetch(apiUrl).then(function (response) {
+    return fetch(apiUrl)
+      .then(function(response) {
         return response.json();
-      }).then(function (json) {
-        json.results.forEach(function (item) {
+      })
+      .then(function(json) {
+        json.results.forEach(function(item) {
           var pokemon = {
             name: item.name,
             detailsUrl: item.url
           };
           add(pokemon);
         });
-      }).catch(function (e) {
-        console.error(e);
       })
+      .catch(function(e) {
+        alert(e);
+      });
   }
 
   function loadDetails(item) {
-      var url = item.detailsUrl;
-      return fetch(url).then(function (response) {
+    var url = item.detailsUrl;
+    return fetch(url)
+      .then(function(response) {
         return response.json();
-      }).then(function (details) {
+      })
+      .then(function(details) {
         // Now we add the details to the item
         item.imageUrl = details.sprites.front_default;
         item.height = details.height;
         item.types = Object.keys(details.types);
-      }).catch(function (e) {
-        console.error(e);
+      })
+      .catch(function(e) {
+        alert(e);
       });
   }
 
@@ -123,19 +130,21 @@ var pokemonRepository = (function () {
     $modalContainer.appendChild(modal);
 
     $modalContainer.classList.add('is-visible');
-
   }
   function hideModal() {
     $modalContainer.classList.remove('is-visible');
   }
 
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && $modalContainer.classList.contains('is-visible')) {
+  window.addEventListener('keydown', e => {
+    if (
+      e.key === 'Escape' &&
+      $modalContainer.classList.contains('is-visible')
+    ) {
       hideModal();
     }
   });
 
-  $modalContainer.addEventListener('click', (e) => {
+  $modalContainer.addEventListener('click', e => {
     // Since this is also triggered when clicking INSIDE the modal container,
     // We only want to close if the user clicks directly on the overlay
     var target = e.target;
